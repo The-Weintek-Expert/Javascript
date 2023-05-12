@@ -1,0 +1,47 @@
+var canvas = new Canvas();
+this.widget.add(canvas);
+var ctx = canvas.getContext("2d");
+
+// define snowflake properties
+var numFlakes = 100;
+var flakes = [];
+for (var i = 0; i < numFlakes; i++) {
+  flakes.push({
+    x: Math.random() * canvas.width,
+    y: Math.random() * canvas.height,
+    speed: 1 + Math.random() * 2,
+    radius: 2 + Math.random() * 3
+  });
+}
+
+// draw snowflakes
+function drawSnow() {
+  // clear canvas
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  // draw flakes
+  for (var i = 0; i < numFlakes; i++) {
+    var flake = flakes[i];
+
+    // move flake down
+    flake.y += flake.speed;
+
+    // reset flake if it falls off screen
+    if (flake.y > canvas.height) {
+      flake.y = Math.random() * -100;
+      flake.speed = 1 + Math.random() * 2;
+    }
+
+    // draw flake
+    ctx.beginPath();
+    ctx.arc(flake.x, flake.y, flake.radius, 0, Math.PI * 2);
+    ctx.fillStyle = "#fff";
+    ctx.fill();
+  }
+
+  // request next frame
+  requestAnimationFrame(drawSnow);
+}
+
+// start snow animation
+requestAnimationFrame(drawSnow);
