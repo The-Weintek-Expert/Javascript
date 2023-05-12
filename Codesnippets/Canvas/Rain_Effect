@@ -1,0 +1,47 @@
+var canvas = new Canvas();
+this.widget.add(canvas);
+var ctx = canvas.getContext("2d");
+
+// define raindrop properties
+var numDrops = 100;
+var drops = [];
+for (var i = 0; i < numDrops; i++) {
+  drops.push({
+    x: Math.random() * canvas.width,
+    y: Math.random() * canvas.height,
+    speed: 1 + Math.random() * 5
+  });
+}
+
+// draw raindrops
+function drawRain() {
+  // clear canvas
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  // draw drops
+  for (var i = 0; i < numDrops; i++) {
+    var drop = drops[i];
+
+    // move drop down
+    drop.y += drop.speed;
+
+    // reset drop if it falls off screen
+    if (drop.y > canvas.height) {
+      drop.y = Math.random() * -100;
+      drop.speed = 1 + Math.random() * 5;
+    }
+
+    // draw drop
+    ctx.beginPath();
+    ctx.moveTo(drop.x, drop.y);
+    ctx.lineTo(drop.x, drop.y + 10);
+    ctx.strokeStyle = "#aaa";
+    ctx.stroke();
+  }
+
+  // request next frame
+  requestAnimationFrame(drawRain);
+}
+
+// start rain animation
+requestAnimationFrame(drawRain);
