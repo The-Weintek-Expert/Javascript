@@ -1,1 +1,59 @@
+var canvas = new Canvas();
+this.widget.add(canvas);
+var ctx = canvas.getContext("2d");
+// Here we define the variables
+var Xmin = 200;
+var Xmax = 1000;
+var Ymin = 30;
+var Ymax = 250;
+var Gridcolor = "#EEEEEE";
+var Labelcolor ="#FFffff";
+var GridlinesHorizontal = 10;
+var GridlinesVertical = 10;
+var Spaceleft = 30;
+var Spaceright= 15;
+var Spacetop = 10;
+var Spacebottom = 30;
 
+// set the style properties of the grid
+ctx.lineWidth = 1;
+ctx.strokeStyle = Gridcolor; // light grey color
+//We will have 30 pixels on the left and the bottom and 10 pixels right and top to have some space for the labels.
+var xScaleFactor = (Xmax - Xmin) / (canvas.width-Spaceleft-Spaceright); // adjust as desired
+var yScaleFactor = (Ymax - Ymin) / (canvas.height-Spacetop-Spacebottom); // adjust as desired
+
+// draw horizontal grid lines
+for (var i = 0; i <= GridlinesHorizontal; i++) {
+  var y = i * ((canvas.height-Spacetop-Spacebottom) / GridlinesHorizontal);
+  ctx.beginPath();
+  ctx.moveTo(0+Spaceleft, y+Spacetop);
+  ctx.lineTo(canvas.width-Spaceright, y+Spacetop);
+  ctx.stroke();
+  
+  // add y-axis labels
+  var label = Math.round(((canvas.height-Spacetop-Spacebottom) - y) * yScaleFactor) + Ymin;
+  ctx.font = "12px Arial";
+  ctx.fillStyle = Labelcolor;
+  ctx.textAlign = "right";
+  ctx.fillText(label, Spaceleft-4, y+Spacetop );
+
+}
+
+
+// draw vertical grid lines
+for (var j = 0; j <= GridlinesVertical; j++) {
+  var x = j * ((canvas.width-Spaceleft-Spaceright) / GridlinesVertical);
+  ctx.beginPath();
+  ctx.moveTo(x+Spaceleft, 0+Spacetop);
+  ctx.lineTo(x+Spaceleft, canvas.height-Spacebottom);
+  ctx.stroke();
+  
+  // add x-axis labels
+  var label = Math.round((x) * xScaleFactor) + Xmin;
+  ctx.font = "12px Arial";
+  ctx.fillStyle = Labelcolor;
+  ctx.textAlign = "center";
+  ctx.fillText(label, x+Spaceleft, (canvas.height-Spacetop));
+
+  
+}
