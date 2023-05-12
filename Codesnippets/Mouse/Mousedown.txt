@@ -1,1 +1,11 @@
-
+// First create the Canvas before we can add Mouse Actions.
+var canvas = new Canvas();
+this.widget.add(canvas);
+// Create a Mouse Area
+var ma = new MouseArea();
+// Create a function when the mouse is clicked
+ma.on("mousedown", function(e) {
+    console.log("I am clicked");
+})
+// Add the mouse Area to the Javascript object
+this.widget.add(ma);
