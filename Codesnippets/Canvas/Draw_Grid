@@ -6,13 +6,13 @@ var Xmin = 200;
 var Xmax = 1000;
 var Ymin = 30;
 var Ymax = 250;
-var Gridcolor = "#EEEEEE";
-var Labelcolor ="#FFffff";
+var Gridcolor = "#999999";
+var Labelcolor ="#999999";
 var GridlinesHorizontal = 10;
 var GridlinesVertical = 10;
 var Spaceleft = 30;
 var Spaceright= 15;
-var Spacetop = 10;
+var Spacetop = 15;
 var Spacebottom = 30;
 
 // set the style properties of the grid
